@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-        git branch: 'main', url: 'https://github.com/halimo22/Jenkins_project'
+        git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins-Project.git'
       }
     }
         stage('Push backend') {
@@ -20,7 +20,7 @@ pipeline {
     stage('Deploying to Kubernetes') {
       steps {
         script {
-          sh './run-script.sh'
+          sh '  ./run-script.sh'
         }
       }
     }
