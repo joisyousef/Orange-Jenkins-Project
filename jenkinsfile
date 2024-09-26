@@ -1,28 +1,50 @@
 pipeline {
     agent any
-  stages {
-    stage('Checkout Source') {
-      steps {
-        git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins-Project.git'
-      }
+    environment {
+        KUBECONFIG = credentials('kubeconfig-credentials-id') // Assuming you have a kubeconfig stored in Jenkins Credentials
     }
-        stage('Push backend') {
+    stages {
+        stage('Checkout Source') {
+            steps {
+                git branch: 'main', url: 'https://github.com/halimo22/Jenkins_project.git'
+            }
+        }
+        stage('Push Backend') {
             steps {
                 build job: 'backend-publish'
             }
         }
-        stage('Push proxy') {
+        stage('Push Proxy') {
             steps {
                 build job: 'proxy-publish'
             }
         }
-
-    stage('Deploying to Kubernetes') {
-      steps {
-        script {
-          sh '  ./run-script.sh'
+        stage('Deploying to Kubernetes') {
+            steps {
+                script {
+                    sh '''
+                        kubectl apply -f Deployments/Backend-Deployment.yaml
+                        kubectl apply -f Deployments/Proxy-Deployment.yaml
+                        kubectl apply -f Deployments/Database-Deployment.yaml
+                        kubectl apply -f Services/Backend-Service.yaml
+                        kubectl apply -f Services/Nodeport.yaml
+                        kubectl apply -f Services/Database-Service.yaml
+                        kubectl apply -f Volumes/Database-pv.yaml
+                        kubectl apply -f Volumes/Databasepvc.yaml
+                        kubectl apply -f Volumes/Database-Secret.yaml
+                    '''
+                }
+            }
         }
-      }
     }
-  }
+    post {
+        success {
+            echo 'Deployment successful!'
+            // Add notifications or other success actions here
+        }
+        failure {
+            echo 'Deployment failed!'
+            // Add notifications or other failure actions here
+        }
+    }
 }

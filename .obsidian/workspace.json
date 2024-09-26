@@ -1,0 +1,197 @@
+{
+  "main": {
+    "id": "d1068d8b7db8890b",
+    "type": "split",
+    "children": [
+      {
+        "id": "0b83e59af4119e8a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "329330c37dd20d0c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6cc8c8c40180bc2e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b9d18520c2659578",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c36bb6e1fe7ee024",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9b3ed307d6f2896b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "646027801d02dcdb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "366e4d472dff5129",
+    "type": "split",
+    "children": [
+      {
+        "id": "9e09981cb35e1388",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0e49f2b2a64f8bee",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {}
+            }
+          },
+          {
+            "id": "46c8809e047b4089",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "73d220ff5c9fc233",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "75a7a90204ad3335",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "91e1e34a683bda0b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-importer:Open Importer": false,
+      "obsidian-projects:Open projects": false,
+      "obsidian-to-notion:Share to notion": false,
+      "obsidian42-brat:BRAT": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-kanban:Create new board": false,
+      "smart-connections:Open: View Smart Connections": false,
+      "smart-connections:Open: Smart Chat Conversation": false
+    }
+  },
+  "active": "329330c37dd20d0c",
+  "lastOpenFiles": [
+    "LabOne/kubernetes lab one.md",
+    "LabSeven/kubernetes lab seven.md",
+    "LabSix/kubernetes lab six.md",
+    "LabSeven",
+    "LabThree/kubernetes lab three.md",
+    "output/host-path-pod.yml",
+    "output/empty-dir-pod.yml",
+    "output/configmap.yml",
+    "output/attachment/dcb06affdcf4ca56ac7e42c77e0a5360.png",
+    "output/attachment/b2088ced779e518b627d90698d3f8be5.png",
+    "output/attachment/6504f0e6ae05280592e222f4e92a631a.png",
+    "output/attachment/5f12f9107505856e77e5c7db9b357f42.png",
+    "output/attachment/3a73378530aa8d87719d0c316dd256d5.png",
+    "output/attachment",
+    "output",
+    "LabSix/attachment/Pasted image 20240915004745.png",
+    "LabSix/attachment/Pasted image 20240915004526.png",
+    "LabSix/pod-with-subpath.yml",
+    "LabSix/attachment/Screenshot_20240915_002902.png",
+    "LabSix/attachment/Pasted image 20240915002620.png",
+    "LabSix/attachment/Pasted image 20240915002554.png",
+    "LabSix/pv-resize-task.yaml",
+    "LabSix/storageclass-resize-task.yaml",
+    "LabSix/storageclass-resize-task",
+    "LabFive/kubernetes lab five.md",
+    "LabFour/kubernetes lab four.md",
+    "LabTwo/kubernetes lab two.md",
+    "LabOne/README.md"
+  ]
+}
