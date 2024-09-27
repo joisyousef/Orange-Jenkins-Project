@@ -39,10 +39,10 @@ pipeline {
         }
     }
     environment {
-        GIT_REPO1 = 'https://github.com/halimo22/backend'
-        GIT_REPO2 = 'https://github.com/halimo22/proxy'
-        GIT_REPO3 = 'https://github.com/halimo22/Orange-Jenkins-Project                         '
-        DOCKER_REGISTRY = 'halimo2'
+        GIT_REPO1 = 'https://github.com/joisyousef/backend.git'
+        GIT_REPO2 = 'https://github.com/joisyousef/proxy.git'
+        GIT_REPO3 = 'https://github.com/joisyousef/Orange-Jenkins-Project.git'                         '
+        DOCKER_REGISTRY = 'joisyousef'
     }
     stages {
         stage('Pull and Build First Image') {
@@ -103,7 +103,12 @@ pipeline {
                 container('kubectl') {
                     script {
                         // Apply the Kubernetes configuration
-             sh 'kubectl apply -f repo3/K8S'
+               sh """
+                kubectl set image deployment/backend-deployment backend=joisyousef/backend:latest --namespace webapp
+                kubectl apply -f /var/jenkins_home/workspace/Orange-Jenkins-Project/Deployments/
+                kubectl apply -f /var/jenkins_home/workspace/Orange-Jenkins-Project/Services/
+                kubectl apply -f /var/jenkins_home/workspace/Orange-Jenkins-Project/Services/
+                """   
                
             }
                     
