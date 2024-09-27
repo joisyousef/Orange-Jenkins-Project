@@ -3,39 +3,23 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins-project.git'
+                git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins.git'
             }
         }
-        stage('List Workspace') {
+        stage('Push Backend') {
             steps {
-                sh 'ls -la' // List files to check Dockerfile locations
+                build job: 'backend-publish'
             }
         }
-        stage('Build Backend Docker Image') {
+        stage('Push Proxy') {
             steps {
-                script {
-                    sh 'docker build -t joisyousef/backend:latest -f Deployments/Dockerfile.backend .'
-                }
+                build job: 'proxy-publish'
             }
         }
-        stage('Build Proxy Docker Image') {
+        stage('Deploying to Kubernetes') {
             steps {
                 script {
-                    sh 'docker build -t joisyousef/proxy:latest -f Deployments/Dockerfile.proxy .'
-                }
-            }
-        }
-        stage('Push Docker Images') {
-            steps {
-                script {
-                    sh 'docker push joisyousef/backend:latest'
-                    sh 'docker push joisyousef/proxy:latest'
-                }
-            }
-        }
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
+                    // Add your deployment commands here
                     sh '''
                     kubectl apply -f Deployments/Backend-Deployment.yaml
                     kubectl apply -f Deployments/Proxy-Deployment.yaml
