@@ -30,7 +30,7 @@
 Create a Namespace for Jenkins.
 
 ```
-kubectl create namespace devops-tools
+kubectl create namespace jenkins
 ```
 
 Deploy the jenkins setup
