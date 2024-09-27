@@ -38,6 +38,7 @@
                 """
             }
         }
+        }
         environment {
             GIT_REPO1 = 'https://github.com/joisyousef/backend.git'
             GIT_REPO2 = 'https://github.com/joisyousef/proxy.git'
