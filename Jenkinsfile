@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        KUBECONFIG = credentials('kubeconfig-credentials-id') // Assuming you have a kubeconfig stored in Jenkins Credentials
-    }
     stages {
         stage('Checkout Source') {
             steps {
@@ -40,11 +37,9 @@ pipeline {
     post {
         success {
             echo 'Deployment successful!'
-            // Add notifications or other success actions here
         }
         failure {
             echo 'Deployment failed!'
-            // Add notifications or other failure actions here
         }
     }
 }
