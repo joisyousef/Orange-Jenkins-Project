@@ -19,7 +19,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   local:
     path: /mnt
   nodeAffinity:
@@ -39,7 +39,7 @@ metadata:
 spec:
   storageClassName: local-storage
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 3Gi
