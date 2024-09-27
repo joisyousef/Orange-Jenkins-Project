@@ -103,12 +103,12 @@ pipeline {
                 container('kubectl') {
                     script {
                         // Apply the Kubernetes configuration
-               sh """
+               sh '''
                 kubectl set image deployment/backend-deployment backend=joisyousef/backend:latest --namespace webapp
                 kubectl apply -f /var/jenkins_home/workspace/Orange-Jenkins-Project/Deployments/
                 kubectl apply -f /var/jenkins_home/workspace/Orange-Jenkins-Project/Services/
                 kubectl apply -f /var/jenkins_home/workspace/Orange-Jenkins-Project/Services/
-                """   
+                ''' 
                
             }
                     
