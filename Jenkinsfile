@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins.git'
+                git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins-project.git'
             }
         }
         stage('List Workspace') {
