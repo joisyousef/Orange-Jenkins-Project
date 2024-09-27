@@ -1,23 +1,27 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout Source') {
             steps {
-                git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins'
+                git branch: 'main', url: 'https://github.com/joisyousef/Orange-Jenkins.git'
+            }
+        }
+        stage('List Workspace') {
+            steps {
+                sh 'ls -la' // List files to check Dockerfile locations
             }
         }
         stage('Build Backend Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t joisyousef/backend:latest -f Dockerfile.backend .'
+                    sh 'docker build -t joisyousef/backend:latest -f Deployments/Dockerfile.backend .'
                 }
             }
         }
         stage('Build Proxy Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t joisyousef/proxy:latest -f Dockerfile.proxy .'
+                    sh 'docker build -t joisyousef/proxy:latest -f Deployments/Dockerfile.proxy .'
                 }
             }
         }
@@ -32,15 +36,17 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    sh 'kubectl apply -f Deployments/Backend-Deployment.yaml'
-                    sh 'kubectl apply -f Deployments/Proxy-Deployment.yaml'
-                    sh 'kubectl apply -f Deployments/Database-Deployment.yaml'
-                    sh 'kubectl apply -f Services/Backend-Service.yaml'
-                    sh 'kubectl apply -f Services/Nodeport.yaml'
-                    sh 'kubectl apply -f Services/Database-Service.yaml'
-                    sh 'kubectl apply -f Volumes/Database-pv.yaml'
-                    sh 'kubectl apply -f Volumes/Database-pvc.yaml'
-                    sh 'kubectl apply -f Volumes/Database-Secret.yaml'
+                    sh '''
+                    kubectl apply -f Deployments/Backend-Deployment.yaml
+                    kubectl apply -f Deployments/Proxy-Deployment.yaml
+                    kubectl apply -f Deployments/Database-Deployment.yaml
+                    kubectl apply -f Services/Backend-Service.yaml
+                    kubectl apply -f Services/Nodeport.yaml
+                    kubectl apply -f Services/Database-Service.yaml
+                    kubectl apply -f Volumes/Database-pv.yaml
+                    kubectl apply -f Volumes/Database-pvc.yaml
+                    kubectl apply -f Volumes/Database-Secret.yaml
+                    '''
                 }
             }
         }
