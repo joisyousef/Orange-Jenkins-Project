@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-        pipeline {
+       pipeline {
     agent any
 
     stages {
@@ -86,3 +86,5 @@ pipeline {
         }
     }
 }
+}
+}   
