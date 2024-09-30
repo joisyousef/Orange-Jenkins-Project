@@ -21,7 +21,7 @@ RUN apt-get update -qq \
 RUN usermod -aG docker jenkins
 
 # Clean up
-RUN apt-get clean       
+RUN apt-get clean
 
 RUN apt-get update && \
     apt-get install -y curl apt-transport-https
@@ -30,7 +30,5 @@ RUN apt-get update && \
 RUN curl -LO "https://dl.k8s.io/release/v1.27.0/bin/linux/amd64/kubectl" && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
-
-
 
 USER jenkins
