@@ -13,38 +13,18 @@ spec:
       labels:
         app: jenkins
     spec:
-      securityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-      serviceAccountName: jenkins-admin
-      initContainers:
-      - name: set-docker-sock-permissions
-        image: busybox
-        command: ["sh", "-c", "chown 1000:$(stat -c '%g' /var/run/docker.sock) /var/run/docker.sock"]
-        volumeMounts:
-        - name: docker-sock
-          mountPath: /var/run/docker.sock
-        securityContext:
-          runAsUser: 0 # Run as root to change ownership
       containers:
       - name: jenkins
         image: custom-jenkins:latest
-        imagePullPolicy: Never
-        resources:
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
-          requests:
-            memory: "500Mi"
-            cpu: "500m"
+        imagePullPolicy: IfNotPresent
         ports:
-        - name: httpport
-          containerPort: 8080
-        - name: jnlpport
-          containerPort: 50000
+        - containerPort: 8080
+          name: httpport
+        - containerPort: 50000
+          name: jnlpport
         livenessProbe:
           httpGet:
-            path: "/login"
+            path: /login
             port: 8080
           initialDelaySeconds: 90
           periodSeconds: 10
@@ -52,17 +32,40 @@ spec:
           failureThreshold: 5
         readinessProbe:
           httpGet:
-            path: "/login"
+            path: /login
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 60 # Corrected the typo here
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
         volumeMounts:
         - name: jenkins-data
           mountPath: /var/jenkins_home
         - name: docker-sock
           mountPath: /var/run/docker.sock
+      initContainers:
+      - name: set-docker-sock-permissions
+        image: busybox
+        command:
+        - sh
+        - -c
+        - chown 1000:$(stat -c '%g' /var/run/docker.sock) /var/run/docker.sock
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      serviceAccountName: jenkins-admin
       volumes:
       - name: jenkins-data
         persistentVolumeClaim:
