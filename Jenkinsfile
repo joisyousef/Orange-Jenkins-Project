@@ -24,17 +24,13 @@ pipeline {
         stage('Build and Push Backend Image') {
             steps {
                 script {
-                    try {
-                        // Attempt to build the backend Docker image
-                        sh """
-                        docker build -t ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER} -f nginx-golang-mysql/backend/Dockerfile .
-                        """
-                    } catch (err) {
-                        // If an error occurs, print the working directory and list the files
-                        echo "Error occurred during Docker build: ${err}"
-                        sh 'pwd'
-                        sh 'ls -la'
-                        error("Build failed, see logs above.")
+                    // Build the backend Docker image with the Jenkins build number as the tag
+                    sh """  
+                    docker build -t ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER} -f nginx-golang-mysql/backend/Dockerfile nginx-golang-mysql/backend
+                    """
+                    // Push the backend image after building it
+                    withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
+                        sh "docker push ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER}"
                     }
                 }
             }
