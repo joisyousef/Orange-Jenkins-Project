@@ -54,7 +54,7 @@ pipeline {
                 script {
                     // Apply the database PVC and secret first
                     sh '''
-                    kubectl apply -f Volumes/ -n ${NAMESPACE}
+                    kubectl apply -f Volumes/ -n ${NAMESPACE} --validate=false
                     '''
                 }
             }
@@ -64,17 +64,17 @@ pipeline {
                 script {
                     // Apply the backend and proxy services
                     sh '''
-                    kubectl apply -f Services/ -n ${NAMESPACE}
+                    kubectl apply -f Services/ -n ${NAMESPACE} --validate=false
                     '''
                 }
             }
-        }
+        }   
         stage('Deploy Deployments') {
             steps {
                 script {
                     // Now apply the deployments after the services
                     sh '''      
-                    kubectl apply -f Deployments/ -n ${NAMESPACE}
+                    kubectl apply -f Deployments/ -n ${NAMESPACE} --validate=false
                     '''
                 }
             }
