@@ -49,36 +49,32 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Database') {
+        stage('Deploy Deployments') {
             steps {
                 script {
                     // Apply the database PVC and secret
                     sh '''      
                     kubectl apply -f Deployments/ -n ${NAMESPACE}
-                    kubectl apply -f Services/ -n ${NAMESPACE}
-                    kubectl apply -f Volumes/ -n ${NAMESPACE}
                     '''
                 }
             }
         }
-        stage('Deploy Proxy') {
+        stage('Deploy Volumes') {
             steps {
                 script {
                     // Apply the proxy deployment and service
                     sh '''
-                    kubectl apply -f proxy-deployment.yaml -n ${NAMESPACE}
-                    kubectl apply -f proxy-service.yaml -n ${NAMESPACE}
+                        kubectl apply -f Volumes/ -n ${NAMESPACE}
                     '''
                 }
             }
         }
-        stage('Deploy Backend') {
+        stage('Deploy Services') {
             steps {
                 script {
                     // Apply the backend deployment and service
                     sh '''
-                    kubectl apply -f backend-deployment.yaml -n ${NAMESPACE}
-                    kubectl apply -f backend-service.yaml -n ${NAMESPACE}
+                        kubectl apply -f Services/ -n ${NAMESPACE}
                     '''
                 }
             }
