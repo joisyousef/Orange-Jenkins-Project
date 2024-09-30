@@ -26,7 +26,7 @@ pipeline {
                 script {
                     // Build the backend Docker image with the Jenkins build number as the tag
                     sh """
-                    docker build -t ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER} -f /nginx-golang-mysql/backend/Dockerfile .
+                    docker build -t ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER} -f nginx-golang-mysql/backend/Dockerfile .
                     """
                     // Push the backend image after building it
                     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
@@ -40,7 +40,7 @@ pipeline {
                 script {
                     // Build the Nginx Docker image with the Jenkins build number as the tag
                     sh """
-                    docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f /nginx-golang-mysql/proxy/Dockerfile .
+                    docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f nginx-golang-mysql/proxy/Dockerfile .
                     """
                     // Push the Nginx image after building it
                     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
