@@ -39,8 +39,10 @@ pipeline {
             steps {
                 script {
                     // Build the Nginx Docker image with the Jenkins build number as the tag
+                    sh 'ls -la nginx-golang-mysql/proxy'
+                    
                     sh """
-                    docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f nginx-golang-mysql/proxy/Dockerfile .
+                    docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f nginx-golang-mysql/proxy/Dockerfile nginx-golang-mysql/proxy
                     """
                     // Push the Nginx image after building it
                     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
