@@ -39,7 +39,6 @@ pipeline {
             steps {
                 script {
                     // Build the Nginx Docker image with the Jenkins build number as the tag
-                    sh 'ls -la nginx-golang-mysql/proxy'
                     
                     sh """
                     docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f nginx-golang-mysql/proxy/Dockerfile nginx-golang-mysql/proxy
@@ -51,22 +50,16 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Deployments') {
-            steps {
-                script {
-                    // Apply the database PVC and secret
-                    sh '''      
-                    kubectl apply -f Deployments/ -n ${NAMESPACE}
-                    '''
-                }
-            }
-        }
+        pipeline {
+    agent any
+
+    stages {
         stage('Deploy Volumes') {
             steps {
                 script {
-                    // Apply the proxy deployment and service
+                    // Apply the database PVC and secret first
                     sh '''
-                        kubectl apply -f Volumes/ -n ${NAMESPACE}
+                    kubectl apply -f Volumes/ -n ${NAMESPACE}
                     '''
                 }
             }
@@ -74,9 +67,19 @@ pipeline {
         stage('Deploy Services') {
             steps {
                 script {
-                    // Apply the backend deployment and service
+                    // Apply the backend and proxy services
                     sh '''
-                        kubectl apply -f Services/ -n ${NAMESPACE}
+                    kubectl apply -f Services/ -n ${NAMESPACE}
+                    '''
+                }
+            }
+        }
+        stage('Deploy Deployments') {
+            steps {
+                script {
+                    // Now apply the deployments after the services
+                    sh '''      
+                    kubectl apply -f Deployments/ -n ${NAMESPACE}
                     '''
                 }
             }
