@@ -39,7 +39,6 @@ pipeline {
             steps {
                 script {
                     // Build the Nginx Docker image with the Jenkins build number as the tag
-                    
                     sh """
                     docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f nginx-golang-mysql/proxy/Dockerfile nginx-golang-mysql/proxy
                     """
@@ -50,10 +49,6 @@ pipeline {
                 }
             }
         }
-       pipeline {
-    agent any
-
-    stages {
         stage('Deploy Volumes') {
             steps {
                 script {
@@ -86,5 +81,3 @@ pipeline {
         }
     }
 }
-}
-}   
