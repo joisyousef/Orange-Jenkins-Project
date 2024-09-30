@@ -29,7 +29,7 @@ pipeline {
                     docker build -t ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER} -f Dockerfile .
                     """
                     // Push the backend image after building it
-                    withDockerRegistry([ credentialsId: "dockerhub-credentials", url: "" ]) {
+                    withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
                         sh "docker push ${DOCKER_REGISTRY}/backend:${env.BUILD_NUMBER}"
                     }
                 }
@@ -43,7 +43,7 @@ pipeline {
                     docker build -t ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER} -f Dockerfile.nginx .
                     """
                     // Push the Nginx image after building it
-                    withDockerRegistry([ credentialsId: "dockerhub-credentials", url: "" ]) {
+                    withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
                         sh "docker push ${DOCKER_REGISTRY}/nginx:${env.BUILD_NUMBER}"
                     }
                 }
@@ -54,11 +54,9 @@ pipeline {
                 script {
                     // Apply the database PVC and secret
                     sh '''      
-                    kubectl apply -f db-secret.yaml -n ${NAMESPACE}
-                    kubectl apply -f db-data-pv.yaml -n ${NAMESPACE}
-                    kubectl apply -f db-data-pvc.yaml -n ${NAMESPACE}
-                    kubectl apply -f mysql-deployment.yaml -n ${NAMESPACE}
-                    kubectl apply -f mysql-service.yaml -n ${NAMESPACE}
+                    kubectl apply -f Deployments/ -n ${NAMESPACE}
+                    kubectl apply -f Services/ -n ${NAMESPACE}
+                    kubectl apply -f Volumes/ -n ${NAMESPACE}
                     '''
                 }
             }
